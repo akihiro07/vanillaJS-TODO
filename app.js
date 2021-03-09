@@ -33,7 +33,7 @@ function addTodo(e) {
   // CHECK TRASH BUTTON
   const trashButton = document.createElement('button')
   trashButton.innerHTML = '<i class="fas fa-trash"></i>'
-  trashButton.classList.add('delete-btn')
+  trashButton.classList.add('trash-btn')
   // Insert li in div.todo
   todoDiv.appendChild(trashButton)
 
