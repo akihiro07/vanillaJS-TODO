@@ -39,4 +39,7 @@ function addTodo(e) {
 
   // Insert div.todo in ul.todo-list
   todoList.appendChild(todoDiv)
+
+  // Clear Todo input value
+  todoInput.value = ''
 }
