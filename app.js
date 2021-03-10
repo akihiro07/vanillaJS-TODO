@@ -23,6 +23,9 @@ function addTodo(e) {
   // Insert li in div.todo
   todoDiv.appendChild(newTodo)
 
+  // Add todo to localstrage
+  saveLocalTodos(todoInput.value)
+
   // // Create button
   // const button = document.createElement('button')
 
@@ -91,3 +94,17 @@ function filterTodo(e) {
     }
   })
 }
+
+function saveLocalTodos(todo) {
+  let todos
+  console.log(localStorage.getItem('todos'))
+  if (localStorage.getItem('todos') === null) {
+    todos = []
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'))
+  }
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos))
+}
+
+// TODO：remove localstrage when delete todo list
