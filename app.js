@@ -57,6 +57,7 @@ function checkButton(e) {
   // Delete Todo
   if (item.classList.contains('trash-btn')) {
     list.classList.add('fall')
+    removeLocalTodos(list)
     list.addEventListener('transitionend', function() {
       list.remove()
     })
@@ -147,5 +148,16 @@ function getLocalTodos() {
   })
 }
 
+function removeLocalTodos(todo) {
+  let todos
+  if (localStorage.getItem('todos') === null) {
+    todos = []
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'))
+  }
+  const todoText = todo.children[0].innerText
+  const todoIndex = todos.indexOf(todoText)
+  todos.splice(todoIndex, 1)
 
-// TODO：remove localstrage when delete todo list
+  localStorage.setItem('todos', JSON.stringify(todos))
+}
