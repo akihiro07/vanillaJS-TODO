@@ -5,6 +5,7 @@ const todoList = document.querySelector('.todo-list')
 const filterOption = document.querySelector('.filter-todo')
 
 // Event Listeners
+document.addEventListener('DOMContentLoaded', getLocalTodos)
 todoButton.addEventListener('click', addTodo)
 todoList.addEventListener('click', checkButton)
 filterOption.addEventListener('change', filterTodo)
@@ -106,5 +107,45 @@ function saveLocalTodos(todo) {
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos))
 }
+
+function getLocalTodos() {
+  let todos
+  console.log(localStorage.getItem('todos'))
+  if (localStorage.getItem('todos') === null) {
+    todos = []
+  } else {
+    todos = JSON.parse(localStorage.getItem('todos'))
+  }
+  todos.forEach((todo) => {
+    // Create div.todo
+    const todoDiv = document.createElement('div')
+    todoDiv.classList.add('todo')
+
+    // Create li
+    const newTodo = document.createElement('li')
+    newTodo.innerText = todo
+    newTodo.classList.add('todo-item')
+    // Insert li in div.todo
+    todoDiv.appendChild(newTodo)
+
+    // CHECK MARK BUTTON
+    const completedButton = document.createElement('button')
+    completedButton.innerHTML = '<i class="fas fa-check"></i>'
+    completedButton.classList.add('complete-btn')
+    // Insert li in div.todo
+    todoDiv.appendChild(completedButton)
+
+    // CHECK TRASH BUTTON
+    const trashButton = document.createElement('button')
+    trashButton.innerHTML = '<i class="fas fa-trash"></i>'
+    trashButton.classList.add('trash-btn')
+    // Insert li in div.todo
+    todoDiv.appendChild(trashButton)
+
+    // Insert div.todo in ul.todo-list
+    todoList.appendChild(todoDiv)
+  })
+}
+
 
 // TODO：remove localstrage when delete todo list
