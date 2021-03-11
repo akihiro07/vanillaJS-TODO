@@ -5,7 +5,7 @@ const todoList = document.querySelector('.todo-list')
 const filterOption = document.querySelector('.filter-todo')
 
 // Event Listeners
-// document.addEventListener('DOMContentLoaded', getLocalTodos)
+document.addEventListener('DOMContentLoaded', getLocalTodos)
 todoButton.addEventListener('click', addTodo)
 todoList.addEventListener('click', checkButton)
 filterOption.addEventListener('change', filterTodo)
@@ -124,7 +124,7 @@ function getLocalTodos() {
   const localStorageExists = localStorage.getItem('todos') !== null
   const todos = localStorageExists ? JSON.parse(localStorage.getItem('todos')) : []
   
-  todos.forEach((todo) => {
+  todos.forEach(({todo}) => {
     // Create div.todo
     const todoDiv = document.createElement('div')
     todoDiv.classList.add('todo')
