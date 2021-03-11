@@ -51,14 +51,15 @@ function addTodo(e) {
 
 function checkButton(e) {
   const item = e.target
-  const list = item.parentElement
   const checkTrashButton = item.classList.contains('trash-btn')
   const checkCompleteuButton = item.classList.contains('complete-btn')
+  const list = item.parentElement
+  const text = list.children[0].innerText
 
   // Delete Todo
   if (checkTrashButton) {
     list.classList.add('fall')
-    removeLocalTodos(list)
+    removeLocalTodos(text)
     list.addEventListener('transitionend', function() {
       list.remove()
     })
@@ -68,10 +69,8 @@ function checkButton(e) {
   if (checkCompleteuButton) {
     list.classList.toggle('completed')
 
-    const text = list.children[0].innerText
     const isCompleted = list.classList.contains('completed')
     const status = isCompleted ? 'completed' : 'uncompleted'
-
     updateLocalTodos(text, status)
   }
 }
@@ -156,13 +155,9 @@ function getLocalTodos() {
   })
 }
 
-// function removeLocalTodos(todo) {
-//   const localStorageExists = localStorage.getItem('todos') !== null
-//   const todos = localStorageExists ? JSON.parse(localStorage.getItem('todos')) : []
-
-//   const todoText = todo.children[0].innerText
-//   const todoIndex = todos.indexOf(todoText)
-//   todos.splice(todoIndex, 1)
-
-//   localStorage.setItem('todos', JSON.stringify(todos))
-// }
+function removeLocalTodos(text) {
+  const todos = JSON.parse(localStorage.getItem('todos'))
+  const index = todos.findIndex(({todo}) => todo === text)
+  todos.splice(index, 1)
+  localStorage.setItem('todos', JSON.stringify(todos))
+}
