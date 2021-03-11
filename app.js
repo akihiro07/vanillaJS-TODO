@@ -124,10 +124,13 @@ function getLocalTodos() {
   const localStorageExists = localStorage.getItem('todos') !== null
   const todos = localStorageExists ? JSON.parse(localStorage.getItem('todos')) : []
   
-  todos.forEach(({todo}) => {
+  todos.forEach(({todo, status}) => {
     // Create div.todo
     const todoDiv = document.createElement('div')
     todoDiv.classList.add('todo')
+    if (status === 'completed') {
+      todoDiv.classList.add(status)
+    }
 
     // Create li
     const newTodo = document.createElement('li')
@@ -136,14 +139,14 @@ function getLocalTodos() {
     // Insert li in div.todo
     todoDiv.appendChild(newTodo)
 
-    // CHECK MARK BUTTON
+    // Create check button
     const completedButton = document.createElement('button')
     completedButton.innerHTML = '<i class="fas fa-check"></i>'
     completedButton.classList.add('complete-btn')
     // Insert li in div.todo
     todoDiv.appendChild(completedButton)
 
-    // CHECK TRASH BUTTON
+    // Create trash button
     const trashButton = document.createElement('button')
     trashButton.innerHTML = '<i class="fas fa-trash"></i>'
     trashButton.classList.add('trash-btn')
